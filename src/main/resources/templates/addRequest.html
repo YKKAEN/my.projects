@@ -1,0 +1,32 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/requestMain">
+<div layout:fragment="content">
+    <div class="col-lg-6" mx-auto style=" margin-left: auto; margin-right: auto; margin-top: 25px">
+        <form th:action="@{'/request/addrequest'}" method="post" th:object="${newRequest}">
+            <div class="mb-3">
+                <label class="form-label"><strong>User Name:</strong></label>
+                <input type="text" class="form-control" name="userName" th:field="*{user_name}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label"><strong>Course Name:</strong></label>
+                <select class="form-select" name="courseId" th:field="*{course}">
+                    <option th:each="crs : ${courseList}"
+                            th:text="${crs.course_name} + ' - ' + ${crs.course_price} + ' ' + USD"
+                            th:value="${crs.id}"></option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label"><strong>Phone number:</strong></label>
+                <input type="text" class="form-control" name="phoneNumber" th:field="*{phone_number}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label"><strong>Comments:</strong></label>
+                <textarea class="form-control" name="comment" th:field="*{comment}"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Application</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

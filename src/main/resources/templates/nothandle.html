@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/requestMain">
+<div layout:fragment="content">
+    <div class="row">
+        <div class="col-md-6" style="margin-top: 25px" th:each="nothandleUsers : ${nothandleUsers}">
+            <div class="h-100 p-5 border rounded-3">
+                <b class="handle" style="font-size: 20px"><label th:if="${nothandleUsers.handled==false}" style="color: #ff0000">*(Новая)</label></b>
+                <b class="card-text" style="font-size: 20px">Заявка от <span
+
+                        th:text="${nothandleUsers.user_name}"></span></b>
+                <p class="card-text" style="margin-top: 25px; font-size: 18px">Курс: <label
+                        th:text="${nothandleUsers.course.course_name}"></label></p>
+                <p class="card-text" style="font-size: 18px" th:text="${nothandleUsers.comment}"></p>
+                <strong>Тел: <span class="card-text" th:text="${nothandleUsers.phone_number}"></span></strong>
+                <div class="button">
+                    <a th:href="@{'/request/handlerequest/' + ${nothandleUsers.id}}" style="margin-top: 25px" class="btn btn-outline-primary">Подробнее</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,116 @@
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/RequestMain">
+<div layout:fragment="content">
+    <div class="col-lg-6" mx-auto style=" margin-left: auto; margin-right: auto; margin-top: 25px">
+        <form th:action="@{'/request/handlerequest/' + ${editRequest.id}}" method="post" th:if="${editRequest!=null}"
+              th:object="${editRequest}">
+            <div class="title" style="margin-bottom: 25px; text-align: center">
+                <b class="handle" style="font-size: 20px"><label th:if="${editRequest.handled==false}"
+                                                                 style="color: red">*** Новая необработанная заявка
+                    ***</label></b>
+                <b class="handle" style="font-size: 20px"><label th:if="${editRequest.handled==true}"
+                                                                 style="color: green">*** Обработанная заявка
+                    ***</label></b>
+            </div>
+            <div class="mb-3">
+                <label class="form-label"><strong>User Name:</strong></label>
+                <input type="text" class="form-control" name="userName" th:value="${editRequest.user_name}"
+                       th:field="*{user_name}">
+            </div>
+            <div class="mb-3">
+                <label class="form-label"><strong>Course Name:</strong></label>
+                <select class="form-control" name="courseId">
+                    <option th:each="crs : ${courseList}"
+                            th:text="${crs.course_name} + ' - ' + ${crs.course_price} + ' ' + USD" th:value="${crs.id}"
+                            th:selected="${editRequest.id==crs.id}"></option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label class="form-label"><strong>Phone number:</strong></label>
+                <input type="text" class="form-control" name="phoneNumber" th:value="${editRequest.phone_number}"
+                       th:field="*{phone_number}" required>
+            </div>
+            <div class="mb-3">
+                <label class="form-label"><strong>Comments:</strong></label>
+                <textarea class="form-control" name="comment" th:value="${editRequest.comment}"
+                          th:field="*{comment}">></textarea>
+            </div>
+
+            <!----------------------------------------------------------------------------------------------------------------------------->
+
+            <div class="mb-3">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        th:if="${!editRequest.handled}">Обработать заявку</button>
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                     aria-hidden="true">
+                    <div class="modal-dialog">
+                        <form th:action="@{'/request/addoperator'}" method="post" class="modal-content">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Выберите оператора</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="container">
+                                    <table class="table table-striped">
+                                        <thead>
+                                        <th scope="col">Выбрать</th>
+                                        <th scope="col">Имя</th>
+                                        <th scope="col">Фамилия</th>
+                                        <th scope="col">Департмент</th>
+                                        </thead>
+                                        <tbody>
+                                        <tr th:each="opr : ${operatorList}">
+                                            <input type="hidden" name="userId" th:value="${editRequest.id}">
+                                            <td><input type="checkbox" name="operatorId" style="margin-left: 25px"
+                                                       th:value="${opr.id}"></td>
+                                            <td th:text="${opr.operator_name}"></td>
+                                            <td th:text="${opr.operator_surname}"></td>
+                                            <td th:text="${opr.operator_department}"></td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                                    <button type="submit" class="btn btn-primary">Назначить</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <form th:action="@{'/request/deleterequest/' + ${editRequest.id}}" method="post" th:if="${editRequest!=null}">
+            <button class="btn btn-danger">Удалить</button>
+        </form>
+        <!----------------------------------------------------------------------------------------------------------------------------->
+
+        <div class="container" style="margin-top: 10px">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th scope="col">Удалить</th>
+                    <th scope="col">Имя</th>
+                    <th scope="col">Фамилия</th>
+                    <th scope="col">Департмент</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="opr : ${editRequest.operators}">
+                    <td>
+                        <button class="btn btn-danger btm-xs" style="margin-left: 15px">x</button>
+                    </td>
+                    <td th:text="${opr.operator_name}"></td>
+                    <td th:text="${opr.operator_surname}"></td>
+                    <td th:text="${opr.operator_department}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>

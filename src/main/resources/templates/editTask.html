@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/taskMain">
+<div layout:fragment="content">
+  <div class="col-lg-6" mx-auto style=" margin-left: auto; margin-right: auto; margin-top: 25px">
+    <form th:action="@{'/task/edittask/' + ${editTask.id}}" method="post" th:if = "${editTask!=null}" th:object="${editTask}">
+      <div class="mb-3">
+        <label for="taskName" class="form-label"><strong>Task Name:</strong></label>
+        <input type="text" class="form-control" id="taskName" placeholder="" name="taskName" th:field="*{taskName}">
+      </div>
+      <div class="mb-3">
+        <label for="taskDescription" class="form-label"><strong>Task Description:</strong></label>
+        <textarea class="form-control" placeholder="" id="taskDescription"
+                  name="taskDescription" th:field="*{taskDecription}"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="taskDeadlineDate" class="form-label"><strong>Task Deadline Date:</strong></label>
+        <input type="date" class="form-control" id="taskDeadlineDate" placeholder=""
+               name="taskDeadlineDate" th:field="*{taskDeadlineDate}">
+      </div>
+      <div class="mb-3">
+        <label for="taskDeadlineDate" class="form-label"><strong>Completed:</strong></label>
+        <select th:field="*{completed}" th:with="options = ${ {'NO', 'YES'} }" class="form-select" aria-label="Default select example">
+          <option th:each="opt, optStat : ${options}"  th:value="${optStat.index}" th:text="${opt}" th:selected="${optStat.index} eq *{completed}"></option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Save</button>
+      <a th:href="@{'/task/deletetask/' + ${editTask.getId()}}" class="btn btn-danger">Delete</a>
+    </form>
+  </div>
+  </form>
+</div>
+</body>
+</html>

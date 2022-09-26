@@ -1,0 +1,23 @@
+<header class="navbar navbar-expand-lg navbar-dark bg-primary" xmlns:th="http://www.thymeleaf.org"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.thymeleaf.org">
+    <a class="navbar-brand" style="margin-left: 25px">CRM Система</a>
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" th:href="@{'/request/allrequests'}">Все заявки</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" th:href="@{'/request/nothandle'}">Новые заявки</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" th:href="@{'/request/handle'}">Обработанные заявки</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link active" aria-current="page" th:href="@{'/request/addrequest'}">+ Добавить
+                заявку</a>
+        </li>
+    </ul>
+    <form class="d-flex" role="search" style="margin-right: 25px">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-light" type="submit">Search</button>
+    </form>
+</header>

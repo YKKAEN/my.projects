@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="layout/taskMain">
+<div layout:fragment="content">
+  <div class="add-task" style="margin-top: 25px">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">+ Add New Task
+    </button>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel"><strong>New Task</strong></h5>
+          </div>
+          <div class="modal-body">
+            <form th:action="@{'/task/addnewtask/'}" method="post">
+              <div class="mb-3">
+                <label class="col-form-label">Task Name:</label>
+                <input type="text" class="form-control" placeholder="Task name..." name ="taskName">
+              </div>
+              <div class="mb-3">
+                <label class="col-form-label">Task Description</label>
+                <textarea class="form-control" placeholder="Description" name="taskDescription"></textarea>
+              </div>
+              <div class="mb-3">
+                <label class="col-form-label">Task Deadline Date</label>
+                <input type="date" class="form-control" name="taskDeadlineDate">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary">Add Task</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-4">
+    <table class="table">
+      <thead>
+      <tr>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>DEADLINE DATE</th>
+        <th>IS COMPLETED</th>
+        <th>DETAILS</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="task : ${taskList}">
+        <td th:text="${task.id}"></td>
+        <td th:text="${task.taskName}"></td>
+        <td th:text="${task.taskDeadlineDate}"></td>
+        <td th:text="${task.isCompleted() ? 'YES' : 'NO'}"></td>
+        <td><a th:href="@{'/task/edittask/' + ${task.id}}" class="btn btn-primary btn-sm">DETAILS</a></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>
+

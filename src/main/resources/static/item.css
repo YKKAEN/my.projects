@@ -1,0 +1,31 @@
+.container {
+    width: 960px;
+}
+
+.btn-buy {
+    width: 100%;
+    background-color: green;
+    color: #fff !important;
+    font-weight: bold;
+}
+
+.item-price {
+    font-size: 24px;
+    font-weight: bold;
+    color: green;
+}
+
+.item-description {
+    font-size: 12px;
+}
+
+.shop-item {
+    height: 17em;
+}
+
+.item-text {
+    height: 9em;
+}
+.item-description {
+    font-size: 16px;
+}
